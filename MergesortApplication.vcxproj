@@ -127,7 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AlgorithmTester.cpp" />
     <ClCompile Include="MergesortApplication.cpp" />
+    <ClCompile Include="MergeSorter.cpp" />
+    <ClCompile Include="RandomIntegerList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AlgorithmTester.h" />
+    <ClInclude Include="MergeSorter.h" />
+    <ClInclude Include="RandomIntegerList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
