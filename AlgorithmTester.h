@@ -83,7 +83,7 @@ private:
     auto start = high_resolution_clock::now();
     MergeSorter::mergeSortAsc(unsortedValues);
     auto end = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(end - start);
+    auto duration = duration_cast<nanoseconds>(end - start);
     return duration.count();
   }
 };
