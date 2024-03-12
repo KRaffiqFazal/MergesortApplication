@@ -15,7 +15,7 @@ public:
   /// <returns>Vector of sorted integers.</returns>
   static vector<int> mergeSortAsc(vector<int> toSort)
   {
-    if (toSort.size() <= 1)
+    if (isSorted(toSort))
     {
       return toSort;
     }
@@ -29,6 +29,21 @@ public:
     return merge(left, right);
   }
 private:
+  static bool isSorted(vector<int> toSort)
+  {
+    if (toSort.size() <= 1)
+    {
+      return true;
+    }
+    for (int i = 1; i < toSort.size(); i++)
+    {
+      if (toSort[i] < toSort[i - 1])
+      {
+        return false;
+      }
+    }
+    return true;
+  }
   /// <summary>
   /// Function used to sort two vectors and return as one sorted vector.
   /// </summary>

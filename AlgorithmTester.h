@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <chrono>
 #include "MergeSorter.h"
+#include "RadixSort.h"
 
 using namespace std;
 using namespace chrono;
@@ -17,7 +18,7 @@ public:
   /// </summary>
   /// <param name="testingValues">Vector of values to sort with merge sort.</param>
   /// <param name="numOfTrials">The number of trials the user wishes to test with.</param>
-  AlgorithmTester(vector<int> testingValues, int numOfTrials)
+  AlgorithmTester(vector<int> testingValues, int numOfTrials, int sortingType)
   {
     // Efficiency will be divided into BigO, BigOmega and BigTheta, therefore must be divisible by 3 to work out bounds.
     if (numOfTrials % 3 != 0)
@@ -26,6 +27,10 @@ public:
     }
     trialsNeeded = numOfTrials;
     unsortedValues = testingValues;
+    if (sortingType == 1)
+    {
+      isMergeSort = true;
+    }
   }
 
   /// <summary>
@@ -73,6 +78,7 @@ private:
   int trialsNeeded;
   vector<int> unsortedValues;
   vector<double> results;
+  bool isMergeSort = false;
 
   /// <summary>
   /// Times the algorithm in milliseconds with a stopwatch.
@@ -80,9 +86,21 @@ private:
   /// <returns>The time it took for the algorithm to sort values.</returns>
   double individualTest()
   {
-    auto start = high_resolution_clock::now();
-    MergeSorter::mergeSortAsc(unsortedValues);
-    auto end = high_resolution_clock::now();
+    steady_clock::time_point start;
+    steady_clock::time_point end;
+    if (isMergeSort)
+    {
+      start = high_resolution_clock::now();
+      MergeSorter::mergeSortAsc(unsortedValues);
+      end = high_resolution_clock::now();
+    }
+    else
+    {
+      start = high_resolution_clock::now();
+      RadixSort::Sort(unsortedValues);
+      end = high_resolution_clock::now();
+    }
+    
     auto duration = duration_cast<nanoseconds>(end - start);
     return duration.count();
   }
