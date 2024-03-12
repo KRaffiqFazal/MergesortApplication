@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 
   int sortType;
 
-  if (!isNumber(argv[3]))
+  if (isNumber(argv[3]))
   {
     sortType = atoi(argv[3]);
     if (!(sortType == 0 || sortType == 1))
