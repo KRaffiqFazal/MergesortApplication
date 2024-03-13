@@ -20,7 +20,14 @@ public:
 
     for (int i = 1; i <= size; i++)
     {
-      randomVector.push_back(rand() % size);
+      if (rand() % 2 == 0)
+      {
+        randomVector.push_back(rand() % size);
+      }
+      else
+      {
+        randomVector.push_back(-(rand() % size));
+      }
     }
 
     return randomVector;

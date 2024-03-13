@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <functional>
 
 using namespace std;
 
@@ -13,16 +14,46 @@ public:
   /// <returns>Sorted vector.</returns>
   static vector<int> Sort(vector<int> toSort)
   {
-    auto maxVal = max_element(toSort.begin(), toSort.end());
-    int maximumValue = distance(toSort.begin(), maxVal);
-
-    for (int exponent = 1; maximumValue / exponent; exponent *= 10)
+    int maximumValue = distance(toSort.begin(), max_element(toSort.begin(), toSort.end()));
+    int minimumValue = distance(toSort.begin(), min_element(toSort.begin(), toSort.end()));
+    int chosenVal;
+    if (maximumValue >= abs(minimumValue))
+    {
+      chosenVal = maximumValue;
+    }
+    else
+    {
+      chosenVal = minimumValue;
+    }
+    for (int exponent = 1; chosenVal / exponent; exponent *= 10)
     {
       toSort = CountingSort(exponent, toSort);
     }
-    return toSort;
+    vector<int> sorted = GetOrdered(toSort);
+    return sorted;
   }
 private:
+
+  static vector<int> GetOrdered(vector<int> allVals)
+  {
+    vector<int> negatives;
+
+    for (int i = 0; i < allVals.size(); i++)
+    {
+      if (allVals[i] < 0)
+      {
+        negatives.push_back(allVals[i]);
+        allVals.erase(allVals.begin() + i);
+        i--;
+      }
+    }
+    reverse(negatives.begin(), negatives.end());
+
+    negatives.insert(negatives.end(), allVals.begin(), allVals.end());
+
+    return negatives;
+  }
+
   /// <summary>
   /// A counting sort algorithm that sorts the values according to a single place value.
   /// </summary>
@@ -33,10 +64,9 @@ private:
   {
     vector<int> outputVector(toSort.size(), 0);
     int occurences[10]{};
-
     for (int i = 0; i < toSort.size(); i++)
     {
-      occurences[(toSort[i] / exponent) % 10]++;
+      occurences[abs((toSort[i] / exponent) % 10)]++;
     }
 
     for (int i = 1; i < 10; i++)
@@ -46,10 +76,9 @@ private:
 
     for (int i = toSort.size() - 1; i >= 0; i--)
     {
-      outputVector[occurences[(toSort[i] / exponent) % 10] - 1] = toSort[i];
-      occurences[(toSort[i] / exponent) % 10]--;
+      outputVector[occurences[abs((toSort[i] / exponent) % 10)] - 1] = toSort[i];
+      occurences[abs((toSort[i] / exponent) % 10)]--;
     }
-
     return outputVector;
   }
 };

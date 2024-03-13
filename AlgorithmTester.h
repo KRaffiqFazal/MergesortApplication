@@ -18,6 +18,7 @@ public:
   /// </summary>
   /// <param name="testingValues">Vector of values to sort with merge sort.</param>
   /// <param name="numOfTrials">The number of trials the user wishes to test with.</param>
+  /// <param name="sortingType">The type of sort that needs to be run.</param>
   AlgorithmTester(vector<int> testingValues, int numOfTrials, int sortingType)
   {
     // Efficiency will be divided into BigO, BigOmega and BigTheta, therefore must be divisible by 3 to work out bounds.
@@ -97,7 +98,7 @@ private:
     else
     {
       start = high_resolution_clock::now();
-      RadixSort::Sort(unsortedValues);
+      auto x = RadixSort::Sort(unsortedValues);
       end = high_resolution_clock::now();
     }
     
