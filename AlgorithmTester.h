@@ -98,7 +98,7 @@ private:
     else
     {
       start = high_resolution_clock::now();
-      auto x = RadixSort::Sort(unsortedValues);
+      RadixSort::Sort(unsortedValues);
       end = high_resolution_clock::now();
     }
     
